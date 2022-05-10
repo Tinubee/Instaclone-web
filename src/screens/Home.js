@@ -1,6 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components";
-import { logUserOut } from "../apollo";
 import Avatar from "../components/Avatar";
 import { FatText } from "../components/shared";
 
