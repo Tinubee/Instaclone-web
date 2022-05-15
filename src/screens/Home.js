@@ -1,9 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
-import styled from "styled-components";
-import Avatar from "../components/Avatar";
-import { FatText } from "../components/shared";
+import Photo from "../components/feed/Photo";
+import PageTitle from "../components/PageTitle";
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   query seeFeed {
     seeFeed {
       id
@@ -14,40 +13,32 @@ const FEED_QUERY = gql`
       file
       caption
       likes
+      comments {
+        id
+        user {
+          username
+          avatar
+        }
+        payload
+        isMine
+        createdAt
+      }
+      commentNumber
       comments
       createAt
       isMine
+      isLiked
     }
   }
 `;
 
-const PhotoContainer = styled.div`
-  background-color: white;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  margin-top: 20px;
-`;
-const PhotoHeader = styled.div`
-  padding: 5px;
-  display: flex;
-  align-items: center;
-`;
-
-const Username = styled(FatText)`
-  margin-left: 5px;
-`;
-
 function Home() {
   const { data } = useQuery(FEED_QUERY);
-
   return (
     <div>
+      <PageTitle title="Home"></PageTitle>
       {data?.seeFeed?.map((photo) => (
-        <PhotoContainer key={photo.id}>
-          <PhotoHeader>
-            <Avatar url={photo.user.avatar} />
-            <Username>{photo.user.username}</Username>
-          </PhotoHeader>
-        </PhotoContainer>
+        <Photo key={photo.id} {...photo} />
       ))}
     </div>
   );
