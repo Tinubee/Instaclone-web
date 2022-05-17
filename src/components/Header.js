@@ -37,7 +37,7 @@ const Icon = styled.span`
 const Button = styled.span`
   background-color: ${(props) => props.theme.accent};
   border-radius: 4px;
-  padding: 3px 15px;
+  padding: 4px 15px;
   color: white;
   font-weight: 600;
 `;
@@ -60,13 +60,17 @@ function Header() {
           {isLoggedIn ? (
             <IconsContainer>
               <Icon>
-                <FontAwesomeIcon icon={faHome} size="lg" />
+                <Link to={routes.home}>
+                  <FontAwesomeIcon icon={faHome} size="lg" />
+                </Link>
               </Icon>
               <Icon>
                 <FontAwesomeIcon icon={faCompass} size="lg" />
               </Icon>
               <Icon>
-                <Avatar url={data?.me?.avatar} />
+                <Link to={`/users/${data?.me?.username}`}>
+                  <Avatar url={data?.me?.avatar} />
+                </Link>
               </Icon>
             </IconsContainer>
           ) : (
